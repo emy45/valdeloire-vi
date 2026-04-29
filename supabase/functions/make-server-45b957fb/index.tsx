@@ -45,10 +45,17 @@ const bucketName = 'make-45b957fb-blog-images';
 
 (async () => {
   const { data: buckets } = await supabaseStorage.storage.listBuckets();
-  const bucketExists = buckets?.some(bucket => bucket.name === bucketName);
-  if (!bucketExists) {
+  const existing = buckets?.find(b => b.name === bucketName);
+  if (!existing) {
     await supabaseStorage.storage.createBucket(bucketName, { public: true });
     console.log(`Created public bucket: ${bucketName}`);
+  } else if (!existing.public) {
+    const { error } = await supabaseStorage.storage.updateBucket(bucketName, { public: true });
+    if (error) {
+      console.log(`Failed to set bucket public: ${error.message}`);
+    } else {
+      console.log(`Bucket ${bucketName} forced to public`);
+    }
   }
 })();
 

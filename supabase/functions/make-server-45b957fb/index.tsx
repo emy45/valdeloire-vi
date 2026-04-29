@@ -319,6 +319,9 @@ app.delete("/make-server-45b957fb/articles/:slug", async (c) => {
 });
 
 // ==================== IMAGE ROUTES ====================
+// Stratégie : on stocke le fichier dans le bucket Storage et on conserve
+// les métadonnées dans le KV store (key = `image:{fileName}`). Le listage
+// se fait depuis le KV — plus fiable et indépendant des spécificités du SDK.
 
 // Upload image (protected) — returns stable public URL
 app.post("/make-server-45b957fb/upload-image", async (c) => {
@@ -341,25 +344,43 @@ app.post("/make-server-45b957fb/upload-image", async (c) => {
     const fileName = `${crypto.randomUUID()}.${fileExt}`;
     const fileBuffer = await file.arrayBuffer();
 
-    const { error } = await supabaseStorage.storage
+    const { error: uploadError } = await supabaseStorage.storage
       .from(bucketName)
       .upload(fileName, fileBuffer, { contentType: file.type });
 
-    if (error) {
-      return c.json({ error: 'Failed to upload image' }, 500);
+    if (uploadError) {
+      console.log(`Storage upload error: ${uploadError.message}`);
+      return c.json({ error: `Storage upload failed: ${uploadError.message}` }, 500);
     }
 
     const { data: urlData } = supabaseStorage.storage
       .from(bucketName)
       .getPublicUrl(fileName);
 
+    const metadata = {
+      name: fileName,
+      originalName: file.name,
+      url: urlData.publicUrl,
+      size: file.size,
+      contentType: file.type,
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      await kv.set(`image:${fileName}`, metadata);
+    } catch (e) {
+      console.log(`KV set error after upload: ${e}`);
+      // best effort — l'image est uploadée, on ne fail pas la requête
+    }
+
     return c.json({ success: true, url: urlData.publicUrl, fileName });
   } catch (error) {
-    return c.json({ error: 'Failed to upload image' }, 500);
+    console.log(`Upload exception: ${error}`);
+    return c.json({ error: `Upload failed: ${error.message || 'unknown'}` }, 500);
   }
 });
 
-// List all images (protected)
+// List all images (protected) — depuis le KV store
 app.get("/make-server-45b957fb/images", async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -369,29 +390,16 @@ app.get("/make-server-45b957fb/images", async (c) => {
       return c.json({ error: 'Unauthorized' }, 401);
     }
 
-    const { data, error } = await supabaseStorage.storage
-      .from(bucketName)
-      .list('', { limit: 200, sortBy: { column: 'created_at', order: 'desc' } });
+    const images = await kv.getByPrefix('image:');
 
-    if (error) {
-      return c.json({ error: 'Failed to list images' }, 500);
-    }
+    const sorted = images.sort((a: any, b: any) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
 
-    const images = (data || [])
-      .filter(file => file.name !== '.emptyFolderPlaceholder' && !file.name.endsWith('/'))
-      .map(file => {
-        const { data: urlData } = supabaseStorage.storage.from(bucketName).getPublicUrl(file.name);
-        return {
-          name: file.name,
-          url: urlData.publicUrl,
-          size: file.metadata?.size || 0,
-          createdAt: file.created_at,
-        };
-      });
-
-    return c.json({ images });
+    return c.json({ images: sorted });
   } catch (error) {
-    return c.json({ error: 'Failed to list images' }, 500);
+    console.log(`List images exception: ${error}`);
+    return c.json({ error: `List failed: ${error.message || 'unknown'}` }, 500);
   }
 });
 
@@ -406,15 +414,13 @@ app.delete("/make-server-45b957fb/images/:fileName", async (c) => {
     }
 
     const fileName = c.req.param('fileName');
-    const { error } = await supabaseStorage.storage.from(bucketName).remove([fileName]);
-
-    if (error) {
-      return c.json({ error: 'Failed to delete image' }, 500);
-    }
+    await supabaseStorage.storage.from(bucketName).remove([fileName]);
+    await kv.del(`image:${fileName}`);
 
     return c.json({ success: true });
   } catch (error) {
-    return c.json({ error: 'Failed to delete image' }, 500);
+    console.log(`Delete image exception: ${error}`);
+    return c.json({ error: `Delete failed: ${error.message || 'unknown'}` }, 500);
   }
 });
 

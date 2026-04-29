@@ -261,13 +261,24 @@ app.post("/make-server-45b957fb/articles", async (c) => {
     };
 
     await kv.set(`article:${slug}`, article);
+
+    const verified = await kv.get(`article:${slug}`);
+    if (!verified) {
+      console.log(`POST /articles: write to article:${slug} did NOT persist`);
+      return c.json({
+        error: "L'écriture n'a pas persisté. Vérifier que la table kv_store_45b957fb existe."
+      }, 500);
+    }
+
+    console.log(`POST /articles: article:${slug} persisted`);
     return c.json({ success: true, article });
   } catch (error) {
-    return c.json({ error: 'Failed to create article' }, 500);
+    console.log(`POST /articles exception: ${error.message || error}`);
+    return c.json({ error: `Create failed: ${error.message || 'unknown'}` }, 500);
   }
 });
 
-// Update article (protected)
+// Update article (protected) — upsert : crée si n'existe pas (cas article démo édité)
 app.put("/make-server-45b957fb/articles/:slug", async (c) => {
   try {
     const accessToken = c.req.header('Authorization')?.split(' ')[1];
@@ -281,22 +292,38 @@ app.put("/make-server-45b957fb/articles/:slug", async (c) => {
     const updates = await c.req.json();
     const existing = await kv.get(`article:${slug}`);
 
-    if (!existing) {
-      return c.json({ error: 'Article not found' }, 404);
-    }
+    const baseArticle = existing || {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      authorId: user.id,
+      authorName: user.user_metadata?.name || user.email || 'Admin',
+    };
 
-    if (updates.slug && updates.slug !== slug) {
+    let finalKey = `article:${slug}`;
+    if (existing && updates.slug && updates.slug !== slug) {
       await kv.del(`article:${slug}`);
-      const updated = { ...existing, ...updates, updatedAt: new Date().toISOString() };
-      await kv.set(`article:${updates.slug}`, updated);
-      return c.json({ success: true, article: updated });
+      finalKey = `article:${updates.slug}`;
+    } else if (!existing && updates.slug) {
+      finalKey = `article:${updates.slug}`;
     }
 
-    const updated = { ...existing, ...updates, updatedAt: new Date().toISOString() };
-    await kv.set(`article:${slug}`, updated);
+    const updated = { ...baseArticle, ...updates, updatedAt: new Date().toISOString() };
+    await kv.set(finalKey, updated);
+
+    // Vérifie que l'écriture a bien été persistée
+    const verified = await kv.get(finalKey);
+    if (!verified) {
+      console.log(`PUT /articles: write to ${finalKey} did NOT persist`);
+      return c.json({
+        error: "L'écriture n'a pas persisté. Vérifier que la table kv_store_45b957fb existe."
+      }, 500);
+    }
+
+    console.log(`PUT /articles: ${finalKey} persisted (existed: ${!!existing})`);
     return c.json({ success: true, article: updated });
   } catch (error) {
-    return c.json({ error: 'Failed to update article' }, 500);
+    console.log(`PUT /articles exception: ${error.message || error}`);
+    return c.json({ error: `Update failed: ${error.message || 'unknown'}` }, 500);
   }
 });
 
@@ -366,12 +393,15 @@ app.post("/make-server-45b957fb/upload-image", async (c) => {
       createdAt: new Date().toISOString(),
     };
 
-    try {
-      await kv.set(`image:${fileName}`, metadata);
-    } catch (e) {
-      console.log(`KV set error after upload: ${e}`);
-      // best effort — l'image est uploadée, on ne fail pas la requête
+    await kv.set(`image:${fileName}`, metadata);
+    const verified = await kv.get(`image:${fileName}`);
+    if (!verified) {
+      console.log(`Upload: KV write to image:${fileName} did NOT persist`);
+      return c.json({
+        error: "Upload OK mais métadata non persistée. Vérifier la table kv_store_45b957fb."
+      }, 500);
     }
+    console.log(`Upload: image:${fileName} persisted`);
 
     return c.json({ success: true, url: urlData.publicUrl, fileName });
   } catch (error) {

@@ -171,33 +171,6 @@ app.get("/make-server-45b957fb/articles", async (c) => {
 
     const articles = await kv.getByPrefix('article:');
 
-    if (articles.length === 0) {
-      const demoArticles = [
-        {
-          id: 'demo-1',
-          slug: "journee-collaborateurs-sodimavi-10-ans-blois-2025",
-          title: "Une journée d'entreprise pas comme les autres : Sodimavi célèbre les 10 ans de son agence de Blois avec un road trip rétro",
-          excerpt: "Le 9 juin 2025, Sodimavi a organisé une journée d'entreprise originale pour ses 120 collaborateurs avec un road trip en voitures anciennes pour célébrer les 10 ans de l'agence de Blois (Fossé).",
-          category: "Événements",
-          image: "https://images.unsplash.com/photo-1664560013811-41ad70780e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwY2xhc3NpYyUyMGNhcnMlMjBwYXJraW5nJTIwY29tcGFueSUyMGV2ZW50JTIwY2VsZWJyYXRpb258ZW58MXx8fHwxNzczNzM5NjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-          publishedAt: "2025-06-30T10:00:00.000Z",
-          authorName: "Équipe Val de Loire VI",
-          published: true,
-          content: `<h2>Une journée d'entreprise pas comme les autres</h2>
-<p>Le 9 juin dernier, <strong>Sodimavi</strong>, concessionnaire pour les Véhicules <strong>ISUZU</strong> (trucks et pick-up), <strong>VOLVO</strong>, <strong>DAF</strong> (agence de Blois) et <strong>KÖGEL</strong> dans 8 départements, a organisé une journée d'entreprise originale pour ses <strong>120 collaborateurs</strong>.</p>
-<h2>10 ans de l'agence de Blois</h2>
-<p>Cette journée marquait un moment important : <strong>les 10 ans de l'agence Sodimavi de Blois</strong>, implantée à <strong>Fossé</strong> dans le département du <strong>Loir-et-Cher</strong>. Dès 9h, les équipes découvrent <strong>une trentaine de voitures anciennes</strong> alignées sur le parking, prêtes pour un <strong>road trip inoubliable</strong> organisé en partenariat avec <strong>Cockpit 41</strong>.</p>
-<h2>Cohésion et esprit d'équipe</h2>
-<p>Équipés de road books et d'énigmes, les salariés ont pris la route à bord des voitures d'époque pour une <strong>matinée de jeux de piste</strong> et de découverte du territoire.</p>
-<h2>Pique-nique au bord de la Loire</h2>
-<p>À l'heure du déjeuner, direction <strong>les bords de Loire</strong>, face au <strong>château de Chaumont-sur-Loire</strong>, pour un <strong>pique-nique convivial</strong> en plein air. Des <strong>balades en gabare</strong> étaient proposées tout au long du déjeuner.</p>
-<hr>
-<p><strong>Val de Loire VI</strong>, membre du groupe Sodimavi, partage ces valeurs de respect, de cohésion et d'excellence au service de ses clients.</p>`,
-        },
-      ];
-      return c.json({ articles: demoArticles });
-    }
-
     const sorted = articles
       .filter((a: any) => isAdmin ? true : a.published)
       .sort((a: any, b: any) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
@@ -215,22 +188,6 @@ app.get("/make-server-45b957fb/articles/:slug", async (c) => {
     const article = await kv.get(`article:${slug}`);
 
     if (!article) {
-      // Demo article fallback
-      if (slug === 'journee-collaborateurs-sodimavi-10-ans-blois-2025') {
-        const demo = {
-          id: 'demo-1',
-          slug,
-          title: "Une journée d'entreprise pas comme les autres : Sodimavi célèbre les 10 ans de son agence de Blois avec un road trip rétro",
-          excerpt: "Le 9 juin 2025, Sodimavi a organisé une journée d'entreprise originale pour ses 120 collaborateurs.",
-          category: "Événements",
-          image: "https://images.unsplash.com/photo-1664560013811-41ad70780e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwY2xhc3NpYyUyMGNhcnMlMjBwYXJraW5nJTIwY29tcGFueSUyMGV2ZW50JTIwY2VsZWJyYXRpb258ZW58MXx8fHwxNzczNzM5NjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-          publishedAt: "2025-06-30T10:00:00.000Z",
-          authorName: "Équipe Val de Loire VI",
-          published: true,
-          content: `<h2>Une journée d'entreprise pas comme les autres</h2><p>Le 9 juin dernier, <strong>Sodimavi</strong> a organisé une journée d'entreprise originale pour ses <strong>120 collaborateurs</strong>.</p>`,
-        };
-        return c.json({ article: demo });
-      }
       return c.json({ error: 'Article not found' }, 404);
     }
 

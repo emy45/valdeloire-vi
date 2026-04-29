@@ -38,11 +38,13 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
     setFetchError(null);
     try {
       const token = await getToken();
+      console.log("[médiathèque] GET /images, token:", token?.slice(0, 20) + "...");
       const res = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-45b957fb/images`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
+      console.log("[médiathèque] GET /images response:", res.status, data);
       if (!res.ok) {
         setFetchError(data.error || `Erreur ${res.status}`);
         return;
@@ -50,7 +52,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
       setImages(data.images || []);
     } catch (e) {
       setFetchError("Impossible de charger les images");
-      console.error("Failed to fetch images", e);
+      console.error("[médiathèque] Failed to fetch images", e);
     } finally {
       setLoading(false);
     }
@@ -68,12 +70,14 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
       for (const file of Array.from(files)) {
         const fd = new FormData();
         fd.append("file", file);
+        console.log("[médiathèque] POST /upload-image", file.name, file.size, file.type);
         const res = await fetch(
           `https://${projectId}.supabase.co/functions/v1/make-server-45b957fb/upload-image`,
           { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd }
         );
+        const data = await res.json().catch(() => ({}));
+        console.log("[médiathèque] POST /upload-image response:", res.status, data);
         if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
           setUploadError(data.error || `Erreur ${res.status} lors de l'upload`);
           return;
         }
@@ -81,7 +85,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
       await fetchImages();
     } catch (e) {
       setUploadError("Erreur lors de l'upload");
-      console.error("Upload error", e);
+      console.error("[médiathèque] Upload error", e);
     } finally {
       setUploading(false);
     }
@@ -133,7 +137,9 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
     <div className={isModal ? "flex flex-col h-full max-h-[80vh]" : "flex flex-col"}>
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 flex-shrink-0">
-        <h2 className="text-lg font-bold text-slate-900">Médiathèque</h2>
+        <h2 className="text-lg font-bold text-slate-900">
+          Médiathèque <span className="text-sm font-normal text-slate-500">({images.length} image{images.length > 1 ? 's' : ''})</span>
+        </h2>
         <div className="flex items-center gap-3">
           <button
             type="button"

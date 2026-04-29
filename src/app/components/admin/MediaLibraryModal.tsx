@@ -38,13 +38,11 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
     setFetchError(null);
     try {
       const token = await getToken();
-      console.log("[médiathèque] GET /images, token:", token?.slice(0, 20) + "...");
       const res = await fetch(
         `https://${projectId}.supabase.co/functions/v1/make-server-45b957fb/images`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
-      console.log("[médiathèque] GET /images response:", res.status, data);
       if (!res.ok) {
         setFetchError(data.error || `Erreur ${res.status}`);
         return;
@@ -52,7 +50,6 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
       setImages(data.images || []);
     } catch (e) {
       setFetchError("Impossible de charger les images");
-      console.error("[médiathèque] Failed to fetch images", e);
     } finally {
       setLoading(false);
     }
@@ -70,32 +67,27 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
       for (const file of Array.from(files)) {
         const fd = new FormData();
         fd.append("file", file);
-        console.log("[médiathèque] POST /upload-image", file.name, file.size, file.type);
         const res = await fetch(
           `https://${projectId}.supabase.co/functions/v1/make-server-45b957fb/upload-image`,
           { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd }
         );
         const data = await res.json().catch(() => ({}));
-        console.log("[médiathèque] POST /upload-image response:", res.status, data);
         if (!res.ok) {
           setUploadError(data.error || `Erreur ${res.status} lors de l'upload`);
           return;
         }
       }
       await fetchImages();
-    } catch (e) {
+    } catch {
       setUploadError("Erreur lors de l'upload");
-      console.error("[médiathèque] Upload error", e);
     } finally {
       setUploading(false);
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    console.log("[médiathèque] handleFileChange, files:", fileList);
     // snapshot AVANT de clear l'input (FileList est une référence vivante)
-    const files = fileList ? Array.from(fileList) : [];
+    const files = e.target.files ? Array.from(e.target.files) : [];
     e.target.value = "";
     if (files.length) uploadFiles(files);
   };
@@ -148,10 +140,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => {
-              console.log("[médiathèque] click → ouvre file picker, ref:", fileInputRef.current);
-              fileInputRef.current?.click();
-            }}
+            onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
             className="flex items-center gap-2 bg-[#001e40] text-white px-4 py-2 rounded-lg hover:bg-[#001429] transition-colors text-sm font-medium disabled:opacity-50"
           >
@@ -209,10 +198,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         ) : images.length === 0 ? (
           <div
             className="flex flex-col items-center justify-center py-16 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-[#001e40] transition-colors"
-            onClick={() => {
-              console.log("[médiathèque] click → ouvre file picker, ref:", fileInputRef.current);
-              fileInputRef.current?.click();
-            }}
+            onClick={() => fileInputRef.current?.click()}
           >
             <ImageIcon className="w-12 h-12 text-slate-300 mb-4" />
             <p className="text-slate-500 font-medium">Aucune image — cliquez ou glissez pour uploader</p>

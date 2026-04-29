@@ -2,7 +2,33 @@ import { Hono } from "npm:hono";
 import { cors } from "npm:hono/cors";
 import { logger } from "npm:hono/logger";
 import { createClient } from "npm:@supabase/supabase-js@2";
-import * as kv from "./kv_store.tsx";
+
+// ── KV Store (inlined) ──────────────────────────────────────────────────────
+const kvClient = () => createClient(
+  Deno.env.get("SUPABASE_URL"),
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
+);
+const kv = {
+  set: async (key: string, value: any): Promise<void> => {
+    const { error } = await kvClient().from("kv_store_45b957fb").upsert({ key, value });
+    if (error) throw new Error(error.message);
+  },
+  get: async (key: string): Promise<any> => {
+    const { data, error } = await kvClient().from("kv_store_45b957fb").select("value").eq("key", key).maybeSingle();
+    if (error) throw new Error(error.message);
+    return data?.value;
+  },
+  del: async (key: string): Promise<void> => {
+    const { error } = await kvClient().from("kv_store_45b957fb").delete().eq("key", key);
+    if (error) throw new Error(error.message);
+  },
+  getByPrefix: async (prefix: string): Promise<any[]> => {
+    const { data, error } = await kvClient().from("kv_store_45b957fb").select("key, value").like("key", prefix + "%");
+    if (error) throw new Error(error.message);
+    return data?.map((d) => d.value) ?? [];
+  },
+};
+// ───────────────────────────────────────────────────────────────────────────
 const app = new Hono();
 
 const supabase = createClient(

@@ -1,13 +1,21 @@
 import { Resend } from 'resend';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Autoriser uniquement les requêtes POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error('RESEND_API_KEY manquante dans les variables d\'environnement Vercel');
+    return res.status(500).json({
+      error: 'Configuration serveur incomplète',
+      details: 'RESEND_API_KEY missing in Vercel environment variables',
+    });
+  }
+
+  const resend = new Resend(apiKey);
 
   try {
     const { name, email, phone, company, address, postalCode, city, vehicleType, message, recipients } = req.body;

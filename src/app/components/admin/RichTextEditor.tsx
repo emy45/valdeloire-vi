@@ -73,7 +73,11 @@ export function RichTextEditor({ value, onChange }: Props) {
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ heading: { levels: [2, 3, 4] } }),
+      StarterKit.configure({
+        heading: { levels: [2, 3, 4] },
+        link: false,
+        underline: false,
+      }),
       Underline,
       ImageExtension.configure({
         HTMLAttributes: { class: "w-full rounded-xl my-4 shadow" },

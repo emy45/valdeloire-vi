@@ -92,15 +92,19 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("[médiathèque] handleFileChange, files:", e.target.files);
-    if (e.target.files?.length) uploadFiles(e.target.files);
+    const fileList = e.target.files;
+    console.log("[médiathèque] handleFileChange, files:", fileList);
+    // snapshot AVANT de clear l'input (FileList est une référence vivante)
+    const files = fileList ? Array.from(fileList) : [];
     e.target.value = "";
+    if (files.length) uploadFiles(files);
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    if (e.dataTransfer.files?.length) uploadFiles(e.dataTransfer.files);
+    const files = e.dataTransfer.files ? Array.from(e.dataTransfer.files) : [];
+    if (files.length) uploadFiles(files);
   };
 
   const handleCopy = async (url: string) => {

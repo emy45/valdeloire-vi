@@ -1,6 +1,7 @@
 import { Briefcase, Users, TrendingUp, Handshake, Send, Upload } from "lucide-react";
 import { useState } from "react";
 import teamHeroImage from "figma:asset/6fef338cc0bc39920892e4213baf72f5a492a514.png";
+import { Seo } from "../components/Seo";
 
 interface JobOffer {
   id: string;
@@ -91,6 +92,11 @@ export function Careers() {
 
   return (
     <div>
+      <Seo
+        title="Nous rejoindre — Recrutement mécanicien poids lourds"
+        description="VAL DE LOIRE V.I recrute. Découvrez nos offres d'emploi de mécanicien et technicien poids lourds à Fossé près de Blois (41). Rejoignez l'équipe d'un agent DAF officiel."
+        path="/nous-rejoindre"
+      />
       {/* Hero Section */}
       <section className="relative bg-[#001e40] text-white py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0">

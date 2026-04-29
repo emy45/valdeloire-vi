@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { Calendar, User, ArrowLeft, Phone, Loader } from "lucide-react";
 import { projectId, publicAnonKey } from "/utils/supabase/info";
 import { ArticleImage } from "../components/ArticleImage";
+import { Seo } from "../components/Seo";
 
 interface Article {
   id: string;
@@ -106,6 +107,15 @@ export function BlogArticleDynamic() {
 
   return (
     <div>
+      <Seo
+        title={article.title}
+        description={article.metaDescription || article.excerpt}
+        path={`/blog/${article.slug}`}
+        image={article.image}
+        type="article"
+        publishedAt={article.publishedAt}
+        author={article.authorName}
+      />
       {/* Breadcrumb */}
       <section className="bg-slate-50 py-4 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

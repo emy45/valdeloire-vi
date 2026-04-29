@@ -1,9 +1,15 @@
 import { Link } from "react-router";
 import { AlertTriangle, Home } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 export function NotFound() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
+      <Seo
+        title="Page introuvable"
+        description="La page que vous recherchez n'existe pas ou a été déplacée."
+        noindex
+      />
       <div className="text-center">
         <AlertTriangle className="w-16 h-16 text-yellow-500 mx-auto mb-6" />
         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">

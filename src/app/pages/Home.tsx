@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Shield, Wrench, Truck, Clock, Phone, ArrowRight, Star, Store } from "lucide-react";
 import { Link } from "react-router";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Seo } from "../components/Seo";
 import heroImage from "figma:asset/d76c96bf4b50d7e0f67ebcf6e32122552dab94c5.png";
 import logo from "figma:asset/870b92c58c1a07c810646758591cdff1f5208dc6.png";
 import dafLogo from "figma:asset/888acf26bb9c034775a99108f2ec0aeef3b65de8.png";
@@ -118,6 +119,11 @@ export function Home() {
 
   return (
     <div>
+      <Seo
+        title="Agent DAF officiel à Blois — Réparation poids lourds 41"
+        description="Agent DAF officiel à Blois (Fossé, 41) depuis 25 ans. Réparation, entretien et dépannage de poids lourds DAF, Volvo et utilitaires Isuzu. Concessionnaire Isuzu, vente de pièces détachées."
+        path="/"
+      />
       {/* Hero Section */}
       <section className="relative bg-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-40">

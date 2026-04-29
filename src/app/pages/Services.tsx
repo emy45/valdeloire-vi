@@ -17,6 +17,7 @@ import {
   ShoppingCart 
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Seo } from "../components/Seo";
 import garageImage from "figma:asset/d433d88d2abd7d069b92554fff6bc7a787c50583.png";
 import magasinImage from "figma:asset/41be84c4a0c8bbefdcd0dff988618b53c7828764.png";
 import reparationImage from "figma:asset/d16c8d138a151523a0a027158ec4f8dfa98639ec.png";
@@ -87,6 +88,11 @@ export function Services() {
 
   return (
     <div>
+      <Seo
+        title="Nos Services — Réparation, vente, dépannage poids lourds"
+        description="Découvrez nos services : réparation poids lourds DAF, Volvo et toutes marques, vente de pièces détachées, concessionnaire Isuzu, dépannage 24/7. Agent DAF officiel à Blois (41)."
+        path="/services"
+      />
       {/* DAF Partnership */}
       <section className="pt-12 md:pt-20 pb-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,6 +1,13 @@
+import { Seo } from "../components/Seo";
+
 export function MentionsLegales() {
   return (
     <div className="min-h-screen bg-white">
+      <Seo
+        title="Mentions Légales"
+        description="Mentions légales du site VAL DE LOIRE V.I, agent DAF officiel à Blois."
+        path="/mentions-legales"
+      />
       {/* Hero Section */}
       <section className="bg-[#001e40] text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

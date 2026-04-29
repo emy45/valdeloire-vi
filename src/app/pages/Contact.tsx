@@ -4,6 +4,7 @@ import contactHeroImage from "figma:asset/39a262bf65b9e3dd7a0622b69354e581292a87
 import teamBuildingImage from "figma:asset/9012e685e891b23f6155c746a719c028243882b0.png";
 import garageExteriorImage from "figma:asset/4b5928c7d8da14f2633ddf3d9dfb25bd936dbd67.png";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Seo } from "../components/Seo";
 
 interface AddressSuggestion {
   properties: {
@@ -186,6 +187,11 @@ export function Contact() {
 
   return (
     <div>
+      <Seo
+        title="Contact — Demander un devis poids lourds"
+        description="Contactez VAL DE LOIRE V.I à Fossé près de Blois. Tél : 02 54 50 29 29. Devis gratuit sous 4h pour la réparation et l'entretien de votre poids lourd. Agent DAF officiel."
+        path="/contact"
+      />
       {/* Hero Section */}
       <section className="relative bg-[#001e40] text-white py-16 md:py-24 overflow-hidden">
         {/* Background Image with Overlay */}

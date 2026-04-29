@@ -1,8 +1,14 @@
 import { FileText } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 export function CGV() {
   return (
     <div>
+      <Seo
+        title="Conditions Générales de Vente"
+        description="Conditions générales de vente de VAL DE LOIRE V.I, agent DAF officiel à Blois."
+        path="/cgv"
+      />
       {/* Hero Section */}
       <section className="relative bg-[#001e40] text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

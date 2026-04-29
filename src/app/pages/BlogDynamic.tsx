@@ -4,6 +4,7 @@ import { Calendar, ArrowRight, Loader } from "lucide-react";
 
 import { projectId, publicAnonKey } from "/utils/supabase/info";
 import { ArticleImage } from "../components/ArticleImage";
+import { Seo } from "../components/Seo";
 import heroImage from "figma:asset/ebfb8a4ba7d89ab780b2f03a4944d4dbf2be77e1.png";
 
 interface Article {
@@ -64,8 +65,13 @@ export function BlogDynamic() {
 
   return (
     <div>
+      <Seo
+        title="Actualités et conseils poids lourds — Blog"
+        description="Conseils d'experts, actualités DAF et informations sur l'entretien de vos poids lourds. Le blog de VAL DE LOIRE V.I, agent DAF officiel à Blois."
+        path="/blog"
+      />
       {/* Hero Section */}
-      <section 
+      <section
         className="relative bg-[#001e40] text-white py-16 md:py-20 overflow-hidden"
       >
         {/* Background image */}

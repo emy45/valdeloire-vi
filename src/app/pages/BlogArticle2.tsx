@@ -1,10 +1,17 @@
 import { Link } from "react-router";
 import { Calendar, User, ArrowLeft, Phone, ArrowRight, Clock, TrendingDown, ShieldCheck } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Seo } from "../components/Seo";
 
 export function BlogArticle2() {
   return (
     <div>
+      <Seo
+        title="Dépannage 24/7 : pourquoi c'est essentiel pour votre flotte"
+        description="Pourquoi un service de dépannage poids lourds 24/7 est essentiel pour la rentabilité de votre flotte. Témoignages et bonnes pratiques."
+        path="/blog/depannage-24-7-pourquoi-essentiel"
+        type="article"
+      />
       {/* Breadcrumb */}
       <section className="bg-slate-50 py-4 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

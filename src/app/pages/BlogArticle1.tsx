@@ -1,10 +1,17 @@
 import { Link } from "react-router";
 import { Calendar, User, ArrowLeft, Phone, ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Seo } from "../components/Seo";
 
 export function BlogArticle1() {
   return (
     <div>
+      <Seo
+        title="Entretien des poids lourds DAF : 5 conseils essentiels"
+        description="5 conseils d'experts pour entretenir votre camion DAF et prolonger sa durée de vie. Conseils d'un agent DAF officiel à Blois (41)."
+        path="/blog/entretien-poids-lourds-daf-conseils"
+        type="article"
+      />
       {/* Breadcrumb */}
       <section className="bg-slate-50 py-4 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

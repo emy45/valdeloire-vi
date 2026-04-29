@@ -1,4 +1,30 @@
-/* Styles pour le contenu des articles de blog */
+/* ── TipTap editor (mirrors article-content styles) ── */
+.ProseMirror {
+  @apply text-slate-700 leading-relaxed outline-none min-h-[400px] p-4;
+}
+.ProseMirror h2 { @apply text-2xl font-bold text-slate-900 mt-8 mb-3; }
+.ProseMirror h3 { @apply text-xl font-bold text-slate-900 mt-6 mb-2; }
+.ProseMirror h4 { @apply text-lg font-semibold text-slate-900 mt-5 mb-2; }
+.ProseMirror p { @apply text-slate-700 mb-3 leading-relaxed; }
+.ProseMirror strong { @apply font-bold text-slate-900; }
+.ProseMirror em { @apply italic; }
+.ProseMirror u { @apply underline; }
+.ProseMirror ul { @apply mb-4 pl-6 list-disc; }
+.ProseMirror ol { @apply mb-4 pl-6 list-decimal; }
+.ProseMirror li { @apply mb-1; }
+.ProseMirror a { @apply text-[#001e40] underline; }
+.ProseMirror img { @apply w-full rounded-xl my-4 shadow; }
+.ProseMirror blockquote { @apply border-l-4 border-[#001e40] pl-4 py-1 my-4 italic text-slate-600; }
+.ProseMirror hr { @apply my-6 border-slate-200; }
+.ProseMirror code { @apply bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-sm; }
+.ProseMirror pre { @apply bg-slate-900 text-white p-4 rounded-lg overflow-x-auto my-4; }
+.ProseMirror pre code { @apply bg-transparent text-white px-0 py-0; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  @apply text-slate-400 float-left h-0 pointer-events-none;
+}
+
+/* ── Styles pour le contenu des articles de blog ── */
 .article-content {
   @apply text-slate-700 leading-relaxed;
 }

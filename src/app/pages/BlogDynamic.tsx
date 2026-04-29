@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { Calendar, ArrowRight, Loader } from "lucide-react";
+
 import { projectId, publicAnonKey } from "/utils/supabase/info";
 import { ArticleImage } from "../components/ArticleImage";
 import heroImage from "figma:asset/ebfb8a4ba7d89ab780b2f03a4944d4dbf2be77e1.png";
@@ -116,10 +117,20 @@ export function BlogDynamic() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {articles.map((article) => (
-                <article
+                <Link
                   key={article.slug}
-                  className="bg-white border-2 border-slate-200 rounded-xl overflow-hidden hover:shadow-2xl hover:border-[#001e40] transition-all group"
+                  to={`/blog/${article.slug}`}
+                  className="bg-white border-2 border-slate-200 rounded-xl overflow-hidden hover:shadow-2xl hover:border-[#001e40] transition-all group block"
                 >
+                  {article.image && (
+                    <div className="overflow-hidden h-48">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
                   <div className="p-4 md:p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="bg-[#001e40] text-white px-3 py-1 rounded-full text-xs md:text-sm font-medium">
@@ -138,8 +149,12 @@ export function BlogDynamic() {
                     <p className="text-sm md:text-base text-slate-600 leading-relaxed line-clamp-3">
                       {article.excerpt}
                     </p>
+                    <div className="mt-4 flex items-center gap-1 text-[#001e40] text-sm font-medium">
+                      Lire l'article
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           )}

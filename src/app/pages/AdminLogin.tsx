@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate } from "react-router";
 import { getSupabaseClient } from "/utils/supabase/client";
 import { Lock, Mail, LogIn } from "lucide-react";
 
@@ -121,18 +121,9 @@ export function AdminLogin() {
             </button>
           </form>
 
-          {/* Info */}
           <div className="mt-8 pt-6 border-t border-slate-200">
-            <p className="text-sm text-slate-600 text-center mb-3">
+            <p className="text-sm text-slate-600 text-center">
               Accès réservé aux administrateurs du site Val de Loire VI
-            </p>
-            <p className="text-sm text-center">
-              <Link
-                to="/admin/signup"
-                className="text-red-700 hover:text-red-800 font-medium"
-              >
-                Créer un compte administrateur
-              </Link>
             </p>
           </div>
         </div>

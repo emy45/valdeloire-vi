@@ -16,6 +16,7 @@ import { AdminSignup } from "./pages/AdminSignup";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { AdminArticleEditor } from "./pages/AdminArticleEditor";
 import { CreateSodimaviArticle } from "./pages/CreateSodimaviArticle";
+import { AdminMediaLibrary } from "./pages/AdminMediaLibrary";
 import { NotFound } from "./pages/NotFound";
 
 export const router = createBrowserRouter([
@@ -56,5 +57,9 @@ export const router = createBrowserRouter([
   {
     path: "/admin/create-sodimavi-article",
     Component: CreateSodimaviArticle,
+  },
+  {
+    path: "/admin/medias",
+    Component: AdminMediaLibrary,
   },
 ]);

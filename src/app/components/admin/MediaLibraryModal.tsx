@@ -92,6 +92,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("[médiathèque] handleFileChange, files:", e.target.files);
     if (e.target.files?.length) uploadFiles(e.target.files);
     e.target.value = "";
   };
@@ -143,7 +144,10 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              console.log("[médiathèque] click → ouvre file picker, ref:", fileInputRef.current);
+              fileInputRef.current?.click();
+            }}
             disabled={uploading}
             className="flex items-center gap-2 bg-[#001e40] text-white px-4 py-2 rounded-lg hover:bg-[#001429] transition-colors text-sm font-medium disabled:opacity-50"
           >
@@ -201,7 +205,10 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         ) : images.length === 0 ? (
           <div
             className="flex flex-col items-center justify-center py-16 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-[#001e40] transition-colors"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              console.log("[médiathèque] click → ouvre file picker, ref:", fileInputRef.current);
+              fileInputRef.current?.click();
+            }}
           >
             <ImageIcon className="w-12 h-12 text-slate-300 mb-4" />
             <p className="text-slate-500 font-medium">Aucune image — cliquez ou glissez pour uploader</p>

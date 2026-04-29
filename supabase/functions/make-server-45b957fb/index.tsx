@@ -352,7 +352,7 @@ app.get("/make-server-45b957fb/images", async (c) => {
     }
 
     const images = (data || [])
-      .filter(file => file.name !== '.emptyFolderPlaceholder' && file.id)
+      .filter(file => file.name !== '.emptyFolderPlaceholder' && !file.name.endsWith('/'))
       .map(file => {
         const { data: urlData } = supabaseStorage.storage.from(bucketName).getPublicUrl(file.name);
         return {

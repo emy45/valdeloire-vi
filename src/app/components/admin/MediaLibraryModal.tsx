@@ -26,6 +26,8 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
   const [images, setImages] = useState<MediaImage[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [deletingName, setDeletingName] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -33,6 +35,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
 
   const fetchImages = useCallback(async () => {
     setLoading(true);
+    setFetchError(null);
     try {
       const token = await getToken();
       const res = await fetch(
@@ -40,8 +43,13 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
+      if (!res.ok) {
+        setFetchError(data.error || `Erreur ${res.status}`);
+        return;
+      }
       setImages(data.images || []);
     } catch (e) {
+      setFetchError("Impossible de charger les images");
       console.error("Failed to fetch images", e);
     } finally {
       setLoading(false);
@@ -55,16 +63,25 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
   const uploadFiles = async (files: FileList | File[]) => {
     const token = await getToken();
     setUploading(true);
+    setUploadError(null);
     try {
       for (const file of Array.from(files)) {
         const fd = new FormData();
         fd.append("file", file);
-        await fetch(
+        const res = await fetch(
           `https://${projectId}.supabase.co/functions/v1/make-server-45b957fb/upload-image`,
           { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd }
         );
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          setUploadError(data.error || `Erreur ${res.status} lors de l'upload`);
+          return;
+        }
       }
       await fetchImages();
+    } catch (e) {
+      setUploadError("Erreur lors de l'upload");
+      console.error("Upload error", e);
     } finally {
       setUploading(false);
     }
@@ -150,7 +167,13 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: Props) {
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
-        {isDragging && (
+          {(uploadError || fetchError) && (
+          <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            {uploadError || fetchError}
+          </div>
+        )}
+
+      {isDragging && (
           <div className="absolute inset-0 z-10 bg-[#001e40]/10 border-4 border-dashed border-[#001e40] rounded-xl flex items-center justify-center pointer-events-none">
             <p className="text-[#001e40] font-semibold text-lg">Déposer les fichiers ici</p>
           </div>

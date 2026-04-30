@@ -143,7 +143,7 @@ export function MentionsLegales() {
                 <strong>Conception et développement :</strong> Val de Loire VI
               </p>
               <p className="text-slate-700">
-                <strong>Photographies :</strong> Unsplash - Photos libres de droits
+                <strong>Photographies :</strong> Val de Loire VI — tous droits réservés
               </p>
             </div>
 

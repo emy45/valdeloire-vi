@@ -4,10 +4,7 @@ import { Home } from "./pages/Home";
 import { Services } from "./pages/Services";
 import { Contact } from "./pages/Contact";
 import { Careers } from "./pages/Careers";
-import { Blog } from "./pages/Blog";
 import { BlogDynamic } from "./pages/BlogDynamic";
-import { BlogArticle1 } from "./pages/BlogArticle1";
-import { BlogArticle2 } from "./pages/BlogArticle2";
 import { BlogArticleDynamic } from "./pages/BlogArticleDynamic";
 import { MentionsLegales } from "./pages/MentionsLegales";
 import { CGV } from "./pages/CGV";
@@ -31,8 +28,6 @@ export const router = createBrowserRouter([
       { path: "mentions-legales", Component: MentionsLegales },
       { path: "cgv", Component: CGV },
       { path: "blog", Component: BlogDynamic },
-      { path: "blog/entretien-poids-lourds-daf-conseils", Component: BlogArticle1 },
-      { path: "blog/depannage-24-7-pourquoi-essentiel", Component: BlogArticle2 },
       { path: "blog/:slug", Component: BlogArticleDynamic },
       { path: "*", Component: NotFound },
     ],

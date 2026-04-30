@@ -179,7 +179,7 @@ export function BlogArticleDynamic() {
           )}
 
           {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none text-justify">
             <p className="text-xl text-slate-600 leading-relaxed mb-8">
               {article.excerpt}
             </p>

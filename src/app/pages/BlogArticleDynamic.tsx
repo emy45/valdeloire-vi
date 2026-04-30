@@ -173,7 +173,7 @@ export function BlogArticleDynamic() {
               <ArticleImage
                 src={article.image}
                 alt={article.title}
-                className="w-full h-[500px] object-cover rounded-2xl"
+                className="w-full object-contain rounded-2xl"
               />
             </div>
           )}

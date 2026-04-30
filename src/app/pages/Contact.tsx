@@ -148,7 +148,7 @@ export function Contact() {
           vehicleType: "",
           message: "",
         });
-      }, 3000);
+      }, 8000);
     }
   };
 

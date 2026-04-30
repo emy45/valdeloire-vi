@@ -120,7 +120,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Envoyer l'email via Resend
     const data = await resend.emails.send({
-      from: 'VAL DE LOIRE V.I <onboarding@resend.dev>', // Remplacez par votre domaine vérifié : noreply@valdeloirevi.fr
+      from: 'VAL DE LOIRE V.I <noreply@vdlvi.fr>',
       to: recipients,
       subject: `[${typeLabel}] Nouvelle demande de ${name}`,
       html: emailHtml,

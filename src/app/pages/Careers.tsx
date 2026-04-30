@@ -513,7 +513,7 @@ export function Careers() {
                     htmlFor="cv"
                     className="block text-sm font-medium text-slate-700 mb-2"
                   >
-                    CV (PDF, max 5Mo) *
+                    CV (PDF, max 5Mo)
                   </label>
                   <div className="relative">
                     <input
@@ -521,7 +521,6 @@ export function Careers() {
                       id="cv"
                       name="cv"
                       accept=".pdf"
-                      required
                       onChange={handleFileChange}
                       className="hidden"
                     />

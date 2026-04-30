@@ -94,10 +94,10 @@ export function Contact() {
     
     switch (formData.vehicleType) {
       case "entretien-reparation":
-        recipients = ["contact@valdeloirevi.fr", "e.richard@sodimavi.fr"];
+        recipients = ["m.boujardine@vdlvi.fr", "r.pinto@sodimavi-sav.fr", "e.richard@sodimavi.fr"];
         break;
       case "achat-pieces":
-        recipients = ["contact@valdeloirevi.fr", "e.richard@sodimavi.fr"];
+        recipients = ["m.boujardine@vdlvi.fr", "r.pinto@sodimavi-sav.fr", "e.richard@sodimavi.fr"];
         break;
       case "achat-isuzu":
         recipients = ["b.barre@sodimavi.fr", "e.richard@sodimavi.fr"];
@@ -106,7 +106,7 @@ export function Contact() {
         recipients = ["d.rassinoux@sodimavi.fr", "e.richard@sodimavi.fr"];
         break;
       default:
-        recipients = ["contact@valdeloirevi.fr"];
+        recipients = ["m.boujardine@vdlvi.fr", "r.pinto@sodimavi-sav.fr"];
     }
     
     // Préparer les données pour l'envoi
@@ -258,10 +258,10 @@ export function Contact() {
                       </div>
                       <div>
                         <a
-                          href="mailto:contact@valdeloirevi.fr"
+                          href="mailto:contact@vdlvi.fr"
                           className="text-[#001e40] hover:text-[#001429] break-all text-sm md:text-base"
                         >
-                          contact@valdeloirevi.fr
+                          contact@vdlvi.fr
                         </a>
                       </div>
                     </div>

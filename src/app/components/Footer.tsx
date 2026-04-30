@@ -26,11 +26,11 @@ export function Footer() {
                 <span>02 54 50 29 29</span>
               </a>
               <a
-                href="mailto:contact@valdeloirevi.fr"
+                href="mailto:contact@vdlvi.fr"
                 className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm break-all"
               >
                 <Mail className="w-3 h-3 md:w-4 md:h-4" />
-                <span>contact@valdeloirevi.fr</span>
+                <span>contact@vdlvi.fr</span>
               </a>
               <div className="flex items-start gap-2 text-slate-400 text-xs md:text-sm">
                 <MapPin className="w-3 h-3 md:w-4 md:h-4 mt-0.5 flex-shrink-0" />

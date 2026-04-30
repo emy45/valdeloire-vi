@@ -258,10 +258,10 @@ export function Contact() {
                       </div>
                       <div>
                         <a
-                          href="mailto:contact@vdlvi.fr"
+                          href="mailto:magasin@vdlvi.fr"
                           className="text-[#001e40] hover:text-[#001429] break-all text-sm md:text-base"
                         >
-                          contact@vdlvi.fr
+                          magasin@vdlvi.fr
                         </a>
                       </div>
                     </div>

@@ -35,7 +35,7 @@ export function MentionsLegales() {
                 <strong>Téléphone :</strong> 02 54 50 29 29
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Email :</strong> contact@vdlvi.fr
+                <strong>Email :</strong> magasin@vdlvi.fr
               </p>
               <p className="text-slate-700 mb-2">
                 <strong>Numéro SIRET :</strong> 433 665 064 000 39
@@ -102,7 +102,7 @@ export function MentionsLegales() {
                 Les informations recueillies via le formulaire de contact sont destinées exclusivement à Val de Loire VI pour le traitement de vos demandes. Elles ne seront en aucun cas transmises à des tiers.
               </p>
               <p className="text-slate-700">
-                Pour exercer vos droits, vous pouvez nous contacter à l'adresse suivante : contact@vdlvi.fr
+                Pour exercer vos droits, vous pouvez nous contacter à l'adresse suivante : magasin@vdlvi.fr
               </p>
             </div>
 

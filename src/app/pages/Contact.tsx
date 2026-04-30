@@ -97,7 +97,7 @@ export function Contact() {
         recipients = ["m.boujardine@vdlvi.fr", "r.pinto@sodimavi-sav.fr", "e.richard@sodimavi.fr"];
         break;
       case "achat-pieces":
-        recipients = ["m.boujardine@vdlvi.fr", "r.pinto@sodimavi-sav.fr", "e.richard@sodimavi.fr"];
+        recipients = ["magasin@vdlvi.fr", "e.richard@sodimavi.fr"];
         break;
       case "achat-isuzu":
         recipients = ["b.barre@sodimavi.fr", "e.richard@sodimavi.fr"];

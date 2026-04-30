@@ -26,25 +26,22 @@ export function MentionsLegales() {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Éditeur du site</h2>
               <p className="text-slate-700 mb-2">
-                <strong>Raison sociale :</strong> Val de Loire VI
+                <strong>Raison sociale :</strong> Val de Loire VI — Distributeur DAF
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Forme juridique :</strong> [À compléter]
+                <strong>Adresse :</strong> 10 rue des Champs de Fossé, 41330 FOSSÉ
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Adresse :</strong> Zone Industrielle, Val de Loire, France
+                <strong>Téléphone :</strong> 02 54 50 29 29
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Téléphone :</strong> 02 54 54 29 29
+                <strong>Email :</strong> contact@valdeloirevi.fr
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Email :</strong> contact@valdelloirevi.fr
+                <strong>Numéro SIRET :</strong> 433 665 064 000 39
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Numéro SIRET :</strong> [À compléter]
-              </p>
-              <p className="text-slate-700 mb-2">
-                <strong>Numéro de TVA intracommunautaire :</strong> [À compléter]
+                <strong>Numéro de TVA intracommunautaire :</strong> FR 67 433 665 064
               </p>
             </div>
 
@@ -52,18 +49,32 @@ export function MentionsLegales() {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Directeur de publication</h2>
               <p className="text-slate-700">
-                Le directeur de la publication est [Nom du dirigeant], en qualité de [Fonction].
+                Le directeur de la publication est <strong>Grégoire Rebuffé</strong>, en qualité de Directeur général du Groupe SODIMAVI.
               </p>
             </div>
 
             {/* Hébergeur */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Hébergement</h2>
+              <p className="text-slate-700 mb-4">
+                Le site est hébergé sur Vercel (front-end) et s'appuie sur Supabase pour la base de données et les fonctions back-end.
+              </p>
+              <p className="text-slate-700 mb-2"><strong>Hébergeur du site :</strong></p>
               <p className="text-slate-700 mb-2">
-                <strong>Hébergeur :</strong> Supabase Inc.
+                Vercel Inc.
               </p>
               <p className="text-slate-700 mb-2">
-                <strong>Adresse :</strong> 970 Toa Payoh North, #07-04, Singapore 318992
+                340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis
+              </p>
+              <p className="text-slate-700 mb-4">
+                <strong>Site web :</strong> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-[#001e40] hover:underline">https://vercel.com</a>
+              </p>
+              <p className="text-slate-700 mb-2"><strong>Hébergeur de la base de données et des fonctions back-end :</strong></p>
+              <p className="text-slate-700 mb-2">
+                Supabase Inc.
+              </p>
+              <p className="text-slate-700 mb-2">
+                970 Toa Payoh North, #07-04, Singapore 318992
               </p>
               <p className="text-slate-700">
                 <strong>Site web :</strong> <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-[#001e40] hover:underline">https://supabase.com</a>
@@ -91,7 +102,7 @@ export function MentionsLegales() {
                 Les informations recueillies via le formulaire de contact sont destinées exclusivement à Val de Loire VI pour le traitement de vos demandes. Elles ne seront en aucun cas transmises à des tiers.
               </p>
               <p className="text-slate-700">
-                Pour exercer vos droits, vous pouvez nous contacter à l'adresse suivante : contact@valdelloirevi.fr
+                Pour exercer vos droits, vous pouvez nous contacter à l'adresse suivante : contact@valdeloirevi.fr
               </p>
             </div>
 
@@ -138,7 +149,7 @@ export function MentionsLegales() {
 
             {/* Date de mise à jour */}
             <div className="text-sm text-slate-500 mt-12 pt-8 border-t border-slate-200">
-              <p>Dernière mise à jour : 16 mars 2026</p>
+              <p>Dernière mise à jour : 30 avril 2026</p>
             </div>
 
           </div>

@@ -71,23 +71,63 @@ export function Careers() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Candidature envoyée:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        position: "",
-        message: "",
-        cv: null,
+
+    try {
+      let cvBase64: string | null = null;
+      let cvName: string | null = null;
+
+      if (formData.cv) {
+        cvName = formData.cv.name;
+        cvBase64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result as string;
+            // Extraire uniquement la partie base64 (sans le préfixe data:...)
+            resolve(result.split(',')[1]);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(formData.cv as File);
+        });
+      }
+
+      const response = await fetch('/api/send-candidature', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          position: formData.position,
+          message: formData.message,
+          cvBase64,
+          cvName,
+        }),
       });
-      setSelectedJob(null);
-    }, 3000);
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi");
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          position: "",
+          message: "",
+          cv: null,
+        });
+        setSelectedJob(null);
+      }, 8000);
+    } catch (error) {
+      alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer.");
+    }
   };
 
   return (

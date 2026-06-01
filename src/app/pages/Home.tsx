@@ -204,32 +204,22 @@ export function Home() {
             {/* Colonne gauche - TRP et Kogel */}
             <div className="flex flex-col gap-6 flex-1 order-2 md:order-1">
               {/* TRP */}
-              <a 
-                href="https://trp.eu/fr-fr/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow h-32 md:h-36"
-              >
+              <div className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md h-32 md:h-36">
                 <img
                   src={trpLogo}
                   alt="TRP"
-                  className="h-20 md:h-24 w-auto object-contain hover:scale-110 transition-transform"
+                  className="h-20 md:h-24 w-auto object-contain"
                 />
-              </a>
+              </div>
               
               {/* Kogel */}
-              <a 
-                href="https://sodimavi.com/remorques-kogel/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow h-32 md:h-36"
-              >
+              <div className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md h-32 md:h-36">
                 <img
                   src={kogelLogo}
                   alt="KÖGEL"
-                  className="h-16 md:h-20 w-auto object-contain hover:scale-110 transition-transform"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
-              </a>
+              </div>
             </div>
             
             {/* DAF au centre - Plus grand */}
@@ -251,32 +241,22 @@ export function Home() {
             {/* Colonne droite - Volvo et Isuzu */}
             <div className="flex flex-col gap-6 flex-1 order-3">
               {/* VOLVO */}
-              <a 
-                href="https://sodimavi.com/gamme-volvo-trucks/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow h-32 md:h-36"
-              >
+              <div className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md h-32 md:h-36">
                 <img
                   src={volvoLogo}
                   alt="VOLVO"
-                  className="h-16 md:h-20 w-auto object-contain hover:scale-110 transition-transform"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
-              </a>
+              </div>
               
               {/* Isuzu */}
-              <a 
-                href="https://sodimavi.com/trucks-et-pick-up-isuzu/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow h-32 md:h-36"
-              >
+              <div className="flex items-center justify-center p-6 bg-white rounded-xl shadow-md h-32 md:h-36">
                 <img
                   src={isuzuLogo}
                   alt="ISUZU"
-                  className="h-16 md:h-20 w-auto object-contain hover:scale-110 transition-transform"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
-              </a>
+              </div>
             </div>
           </div>
         </div>

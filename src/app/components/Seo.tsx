@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE_URL = "https://vdlvi.fr";
+const SITE_URL = "https://www.valdeloirevi.fr";
 const SITE_NAME = "VAL DE LOIRE V.I";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://vdlvi.fr/sitemap.xml
+Sitemap: https://www.valdeloirevi.fr/sitemap.xml

@@ -24,6 +24,7 @@ export function Careers() {
     position: "",
     message: "",
     cv: null as File | null,
+    website: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -104,6 +105,7 @@ export function Careers() {
           message: formData.message,
           cvBase64,
           cvName,
+          honeypot: formData.website,
         }),
       });
 
@@ -122,6 +124,7 @@ export function Careers() {
           position: "",
           message: "",
           cv: null,
+          website: "",
         });
         setSelectedJob(null);
       }, 8000);
@@ -554,6 +557,18 @@ export function Careers() {
                     rows={6}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#001e40] focus:border-transparent outline-none resize-none"
                     placeholder="Présentez-vous et expliquez votre motivation..."
+                  />
+                </div>
+
+                {/* Honeypot — invisible pour les humains, rempli par les bots */}
+                <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
                   />
                 </div>
 

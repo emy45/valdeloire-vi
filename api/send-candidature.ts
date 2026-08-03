@@ -13,7 +13,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const resend = new Resend(apiKey);
 
-  const { firstName, lastName, email, phone, position, message, cvBase64, cvName } = req.body;
+  const { firstName, lastName, email, phone, position, message, cvBase64, cvName, honeypot } = req.body;
+
+  // Honeypot : si rempli, c'est un bot
+  if (honeypot) {
+    return res.status(200).json({ success: true });
+  }
 
   if (!firstName || !lastName || !email || !phone || !position || !message) {
     return res.status(400).json({ error: 'Champs requis manquants' });

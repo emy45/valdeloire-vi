@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    { "source": "/recrutement", "destination": "/nous-rejoindre", "permanent": true },
+    { "source": "/garage-poids-lourds", "destination": "/services", "permanent": true },
+    { "source": "/photos", "destination": "/", "permanent": true },
+    { "source": "/vieprivee", "destination": "/mentions-legales", "permanent": true },
+    { "source": "/mentionslegales", "destination": "/mentions-legales", "permanent": true }
+  ],
   "functions": {
     "api/send-email.ts": {
       "memory": 1024,

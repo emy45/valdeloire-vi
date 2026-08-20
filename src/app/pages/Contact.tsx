@@ -27,6 +27,7 @@ export function Contact() {
     city: "",
     vehicleType: "",
     message: "",
+    website: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -113,7 +114,8 @@ export function Contact() {
     const emailData = {
       ...formData,
       recipients: recipients,
-      recipientsString: recipients.join("; ")
+      recipientsString: recipients.join("; "),
+      honeypot: formData.website,
     };
     
     // Dans une application réelle, vous enverriez ces données à un serveur
@@ -147,6 +149,7 @@ export function Contact() {
           city: "",
           vehicleType: "",
           message: "",
+          website: "",
         });
       }, 8000);
     }
@@ -527,6 +530,18 @@ export function Contact() {
                         rows={4}
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#001e40] focus:border-transparent outline-none resize-none"
                         placeholder="Décrivez votre besoin..."
+                      />
+                    </div>
+
+                    {/* Honeypot — invisible pour les humains, rempli par les bots */}
+                    <div style={{ position: "absolute", left: "-9999px", top: "-9999px" }} aria-hidden="true">
+                      <input
+                        type="text"
+                        name="website"
+                        value={formData.website}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
                       />
                     </div>
 

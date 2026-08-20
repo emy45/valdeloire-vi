@@ -18,7 +18,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const resend = new Resend(apiKey);
 
   try {
-    const { name, email, phone, company, address, postalCode, city, vehicleType, message, recipients } = req.body;
+    const { name, email, phone, company, address, postalCode, city, vehicleType, message, recipients, honeypot } = req.body;
+
+    // Honeypot : si rempli, c'est un bot
+    if (honeypot) {
+      return res.status(200).json({ success: true });
+    }
 
     // Validation des données
     if (!name || !email || !phone || !message || !vehicleType || !recipients || recipients.length === 0) {

@@ -6,7 +6,8 @@
     { "source": "/vieprivee", "destination": "/mentions-legales", "permanent": true },
     { "source": "/mentionslegales", "destination": "/mentions-legales", "permanent": true },
     { "source": "/privacy", "destination": "/mentions-legales", "permanent": true },
-    { "source": "/véhicules-industriels", "destination": "/services", "permanent": true }
+    { "source": "/véhicules-industriels", "destination": "/services", "permanent": true },
+    { "source": "/page-avis", "destination": "/", "permanent": true }
   ],
   "functions": {
     "api/send-email.ts": {

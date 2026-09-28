@@ -389,7 +389,7 @@ export function Contact() {
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100">
+                    <div className="pt-3 pb-4 border-t border-slate-100">
                       <p className="text-sm font-semibold text-slate-900 mb-2">Zone d'intervention</p>
                       <p className="text-sm text-slate-600 leading-relaxed">
                         Blois, Fossé, Vendôme, Romorantin-Lanthenay, Mer, Contres, Onzain et tout le Loir-et-Cher (41)

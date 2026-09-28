@@ -1,9 +1,10 @@
-import { MapPin, Phone, Mail, Clock, Send, Users, Wrench } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, Users, Wrench, Star } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import contactHeroImage from "figma:asset/39a262bf65b9e3dd7a0622b69354e581292a87a1.png";
 import teamBuildingImage from "figma:asset/9012e685e891b23f6155c746a719c028243882b0.png";
 import garageExteriorImage from "figma:asset/4b5928c7d8da14f2633ddf3d9dfb25bd936dbd67.png";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Helmet } from "react-helmet-async";
 import { Seo } from "../components/Seo";
 
 interface AddressSuggestion {
@@ -36,8 +37,22 @@ export function Contact() {
   const [isSearching, setIsSearching] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
+  const [overallRating, setOverallRating] = useState<number>(0);
+  const [totalReviews, setTotalReviews] = useState<number>(0);
   const suggestionsRef = useRef<HTMLDivElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fetch('/api/google-reviews')
+      .then(r => r.json())
+      .then(data => {
+        if (!data.error) {
+          setOverallRating(data.overallRating || 0);
+          setTotalReviews(data.totalReviews || 0);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Fermer les suggestions si clic en dehors
   useEffect(() => {
@@ -195,6 +210,84 @@ export function Contact() {
         description="Contactez VAL DE LOIRE V.I à Fossé près de Blois. Tél : 02 54 50 29 29. Devis gratuit sous 4h pour la réparation et l'entretien de votre poids lourd. Agent DAF officiel."
         path="/contact"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://www.valdeloirevi.fr/contact#webpage",
+              "url": "https://www.valdeloirevi.fr/contact",
+              "name": "Contact — Demander un devis poids lourds | VAL DE LOIRE V.I",
+              "description": "Contactez VAL DE LOIRE V.I à Fossé près de Blois. Tél : 02 54 50 29 29. Devis gratuit sous 4h pour la réparation et l'entretien de votre poids lourd.",
+              "breadcrumb": { "@id": "https://www.valdeloirevi.fr/contact#breadcrumb" },
+              "isPartOf": { "@id": "https://www.valdeloirevi.fr/#website" },
+              "inLanguage": "fr-FR"
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://www.valdeloirevi.fr/contact#breadcrumb",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.valdeloirevi.fr/" },
+                { "@type": "ListItem", "position": 2, "name": "Contact" }
+              ]
+            },
+            {
+              "@type": ["AutoRepair", "AutoDealer"],
+              "@id": "https://www.valdeloirevi.fr/#localbusiness",
+              "name": "VAL DE LOIRE V.I. - DAF & VOLVO & ISUZU TRUCKS",
+              "url": "https://www.valdeloirevi.fr",
+              "telephone": "+33254502929",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "10 Rue des Champs de Fossé",
+                "addressLocality": "Fossé",
+                "postalCode": "41330",
+                "addressRegion": "Centre-Val de Loire",
+                "addressCountry": "FR"
+              },
+              "geo": { "@type": "GeoCoordinates", "latitude": 47.635703, "longitude": 1.287712 },
+              "hasMap": "https://maps.google.com/maps/place/?q=place_id:ChIJkQ4E_AYVCEgR3rsAUYeWAqE",
+              "openingHoursSpecification": [
+                { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "12:00" },
+                { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "14:00", "closes": "18:00" },
+                { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00" }
+              ]
+            },
+            {
+              "@type": "FAQPage",
+              "@id": "https://www.valdeloirevi.fr/contact#faq",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "Comment prendre rendez-vous pour un entretien ou une réparation ?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Appelez-nous au 02 54 50 29 29 du lundi au vendredi de 8h à 12h et de 14h à 18h, et le samedi matin de 8h à 12h. Vous pouvez aussi écrire à magasin@vdlvi.fr ou utiliser le formulaire de contact." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Quel est le délai de réponse pour un devis ?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Nous répondons à toutes les demandes de devis sous 4 heures ouvrées." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Proposez-vous un service de dépannage d'urgence ?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Oui, le dépannage DAF est disponible 24h/24 et 7j/7 via le numéro DAF Assistance : 01 40 214 30 00." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Réparez-vous d'autres marques que DAF ?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "Oui, notre atelier prend en charge les poids lourds toutes marques pour l'entretien et la réparation. Nous sommes spécialisés DAF et Volvo Trucks avec le diagnostic constructeur, et intervenons aussi sur les autres marques." }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Où êtes-vous situés et comment venir ?",
+                  "acceptedAnswer": { "@type": "Answer", "text": "VAL DE LOIRE V.I est situé au 10 Rue des Champs de Fossé, 41330 Fossé, à 5 minutes de Blois. Accès facilité pour les poids lourds depuis la N152." }
+                }
+              ]
+            }
+          ]
+        })}</script>
+      </Helmet>
       {/* Hero Section */}
       <section className="relative bg-[#001e40] text-white py-16 md:py-24 overflow-hidden">
         {/* Background Image with Overlay */}
@@ -212,6 +305,9 @@ export function Contact() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Contactez-nous</h1>
           <p className="text-base md:text-xl text-slate-300 max-w-3xl">
             Notre équipe est à votre disposition pour répondre à vos questions et vous fournir les solutions adaptées
+          </p>
+          <p className="text-sm text-slate-400 mt-4 max-w-2xl">
+            Agent DAF officiel et concessionnaire Isuzu implanté à Fossé (41330), à 5 minutes de Blois. Réparation, entretien et dépannage de poids lourds DAF, Volvo Trucks et véhicules Isuzu pour les professionnels du transport et du BTP en Loir-et-Cher et Centre-Val de Loire.
           </p>
         </div>
       </section>
@@ -291,6 +387,13 @@ export function Contact() {
                           Sam : 8h-12h
                         </p>
                       </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100">
+                      <p className="text-sm font-semibold text-slate-900 mb-2">Zone d'intervention</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Blois, Fossé, Vendôme, Romorantin-Lanthenay, Tours, Amboise, Châteauroux et toute la région Centre-Val de Loire
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -657,6 +760,90 @@ export function Contact() {
               </svg>
               Laisser un avis Google
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Avis clients */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#001e40] mb-2">Avis clients</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">Ce que disent nos clients</h2>
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col sm:flex-row items-start gap-6 max-w-3xl">
+            <div className="flex flex-col items-center flex-shrink-0 min-w-[90px]">
+              <span className="text-4xl font-bold text-slate-900">{overallRating > 0 ? overallRating.toFixed(1) : "—"}</span>
+              <div className="flex items-center gap-0.5 my-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className={`w-5 h-5 ${i < Math.round(overallRating) ? 'fill-yellow-400 text-yellow-400' : 'fill-slate-300 text-slate-300'}`} />
+                ))}
+              </div>
+              <span className="text-sm text-slate-500 text-center">{totalReviews > 0 ? `${totalReviews} avis Google` : "avis Google"}</span>
+            </div>
+            <div>
+              <p className="text-slate-700 leading-relaxed mb-3">
+                VAL DE LOIRE V.I est noté{" "}
+                <strong>{overallRating > 0 ? `${overallRating.toFixed(1)} sur 5 sur Google` : "sur Google"}</strong>
+                {totalReviews > 0 && `, sur ${totalReviews} avis`}. Les professionnels du transport et du BTP y soulignent la réactivité de l'atelier, la compétence des techniciens certifiés DAF, et la disponibilité de l'équipe pour répondre aux urgences.
+              </p>
+              <a
+                href="https://search.google.com/local/reviews?placeid=ChIJkQ4E_AYVCEgR3rsAUYeWAqE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#001e40] font-medium hover:underline text-sm"
+              >
+                Lire les avis sur Google →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 text-center">
+            Questions fréquentes
+          </h2>
+          <p className="text-slate-500 text-center mb-8">L'agence VAL DE LOIRE V.I en pratique</p>
+          <div className="max-w-3xl mx-auto space-y-3">
+            {[
+              {
+                q: "Comment prendre rendez-vous pour un entretien ou une réparation ?",
+                a: "Appelez-nous au 02 54 50 29 29 du lundi au vendredi de 8h à 12h et de 14h à 18h, et le samedi matin de 8h à 12h. Vous pouvez aussi écrire à magasin@vdlvi.fr ou utiliser le formulaire de contact ci-dessus."
+              },
+              {
+                q: "Réparez-vous d'autres marques que DAF ?",
+                a: "Oui, notre atelier prend en charge les poids lourds toutes marques pour l'entretien et la réparation. Nous sommes spécialisés DAF et Volvo Trucks avec le diagnostic constructeur, et intervenons aussi sur les autres marques."
+              },
+              {
+                q: "Quel est le délai de réponse pour un devis ?",
+                a: "Nous répondons à toutes les demandes de devis sous 4 heures ouvrées."
+              },
+              {
+                q: "Proposez-vous un service de dépannage d'urgence ?",
+                a: "Oui, le dépannage DAF est disponible 24h/24 et 7j/7 via le numéro DAF Assistance : 01 40 214 30 00."
+              },
+              {
+                q: "Où êtes-vous situés et comment venir ?",
+                a: "VAL DE LOIRE V.I est situé au 10 Rue des Champs de Fossé, 41330 Fossé, à 5 minutes de Blois. Accès facilité pour les poids lourds depuis la N152."
+              },
+              {
+                q: "Vendez-vous des pièces détachées poids lourds ?",
+                a: "Oui, notre magasin propose les pièces d'origine DAF, Volvo et Isuzu ainsi que des pièces adaptables toutes marques de la gamme TRP. Contactez-nous au 02 54 50 29 29 pour vérifier la disponibilité."
+              }
+            ].map((item, i) => (
+              <details key={i} className="group border border-slate-200 rounded-xl overflow-hidden bg-white">
+                <summary className="flex items-center justify-between cursor-pointer px-6 py-4 font-semibold text-slate-900 hover:bg-slate-50 transition-colors list-none">
+                  {item.q}
+                  <svg className="w-5 h-5 text-slate-400 flex-shrink-0 ml-4 group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                  {item.a}
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>

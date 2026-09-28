@@ -281,7 +281,7 @@ export function Contact() {
                 {
                   "@type": "Question",
                   "name": "Où êtes-vous situés et comment venir ?",
-                  "acceptedAnswer": { "@type": "Answer", "text": "VAL DE LOIRE V.I est situé au 10 Rue des Champs de Fossé, 41330 Fossé, à 5 minutes de Blois. Accès facilité pour les poids lourds depuis la N152." }
+                  "acceptedAnswer": { "@type": "Answer", "text": "VAL DE LOIRE V.I est situé au 10 Rue des Champs de Fossé, 41330 Fossé, à 5 minutes de Blois. Accès facilité pour les poids lourds depuis la N152. Nous intervenons dans tout le Loir-et-Cher (41) : Blois, Vendôme, Romorantin-Lanthenay, Mer, Contres, Onzain." }
                 }
               ]
             }
@@ -392,7 +392,7 @@ export function Contact() {
                     <div className="pt-3 border-t border-slate-100">
                       <p className="text-sm font-semibold text-slate-900 mb-2">Zone d'intervention</p>
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        Blois, Fossé, Vendôme, Romorantin-Lanthenay, Tours, Amboise, Châteauroux et toute la région Centre-Val de Loire
+                        Blois, Fossé, Vendôme, Romorantin-Lanthenay, Mer, Contres, Onzain et tout le Loir-et-Cher (41)
                       </p>
                     </div>
                   </div>
@@ -741,58 +741,56 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Google Review CTA */}
-          <div className="mt-8 bg-white rounded-xl p-8 text-center shadow-lg border border-slate-200">
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">
-              Vous avez apprécié nos services ?
-            </h3>
-            <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-              Votre avis nous aide à améliorer nos prestations et à accompagner d'autres professionnels dans le choix de leur partenaire poids lourds.
-            </p>
-            <a
-              href="https://g.page/r/Cd67AFGHlgKhEBM/review"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#001e40] text-white px-8 py-4 rounded-lg hover:bg-[#001429] transition-colors font-semibold text-lg shadow-md"
-            >
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-              </svg>
-              Laisser un avis Google
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Avis clients */}
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#001e40] mb-2">Avis clients</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">Ce que disent nos clients</h2>
-          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 flex flex-col sm:flex-row items-start gap-6 max-w-3xl">
-            <div className="flex flex-col items-center flex-shrink-0 min-w-[90px]">
-              <span className="text-4xl font-bold text-slate-900">{overallRating > 0 ? overallRating.toFixed(1) : "—"}</span>
-              <div className="flex items-center gap-0.5 my-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-5 h-5 ${i < Math.round(overallRating) ? 'fill-yellow-400 text-yellow-400' : 'fill-slate-300 text-slate-300'}`} />
-                ))}
-              </div>
-              <span className="text-sm text-slate-500 text-center">{totalReviews > 0 ? `${totalReviews} avis Google` : "avis Google"}</span>
-            </div>
-            <div>
-              <p className="text-slate-700 leading-relaxed mb-3">
-                VAL DE LOIRE V.I est noté{" "}
-                <strong>{overallRating > 0 ? `${overallRating.toFixed(1)} sur 5 sur Google` : "sur Google"}</strong>
-                {totalReviews > 0 && `, sur ${totalReviews} avis`}. Les professionnels du transport et du BTP y soulignent la réactivité de l'atelier, la compétence des techniciens certifiés DAF, et la disponibilité de l'équipe pour répondre aux urgences.
+          {/* Avis en 2 colonnes */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Colonne gauche : laisser un avis */}
+            <div className="bg-white rounded-xl p-8 text-center shadow-sm border border-slate-200 flex flex-col items-center justify-center">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Vous avez apprécié nos services ?
+              </h3>
+              <p className="text-slate-600 mb-6 text-sm">
+                Votre avis nous aide à améliorer nos prestations et à accompagner d'autres professionnels dans le choix de leur partenaire poids lourds.
               </p>
               <a
-                href="https://search.google.com/local/reviews?placeid=ChIJkQ4E_AYVCEgR3rsAUYeWAqE"
+                href="https://g.page/r/Cd67AFGHlgKhEBM/review"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#001e40] font-medium hover:underline text-sm"
+                className="inline-flex items-center gap-3 bg-[#001e40] text-white px-6 py-3 rounded-lg hover:bg-[#001429] transition-colors font-semibold shadow-md"
               >
-                Lire les avis sur Google →
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                Laisser un avis Google
               </a>
+            </div>
+            {/* Colonne droite : résumé avis */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#001e40] mb-1">Avis clients</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Ce que disent nos clients</h3>
+              <div className="flex items-start gap-5">
+                <div className="flex flex-col items-center flex-shrink-0 min-w-[80px]">
+                  <span className="text-4xl font-bold text-slate-900">{overallRating > 0 ? overallRating.toFixed(1) : "—"}</span>
+                  <div className="flex items-center gap-0.5 my-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className={`w-4 h-4 ${i < Math.round(overallRating) ? 'fill-yellow-400 text-yellow-400' : 'fill-slate-300 text-slate-300'}`} />
+                    ))}
+                  </div>
+                  <span className="text-xs text-slate-500 text-center">{totalReviews > 0 ? `${totalReviews} avis Google` : "avis Google"}</span>
+                </div>
+                <div>
+                  <p className="text-slate-700 text-sm leading-relaxed mb-3">
+                    VAL DE LOIRE V.I est noté <strong>{overallRating > 0 ? `${overallRating.toFixed(1)} sur 5` : "5 sur 5"}</strong>{totalReviews > 0 && ` sur ${totalReviews} avis`}. Les professionnels du transport et du BTP y soulignent la réactivité de l'atelier, la compétence des techniciens certifiés DAF, et la disponibilité de l'équipe.
+                  </p>
+                  <a
+                    href="https://search.google.com/local/reviews?placeid=ChIJkQ4E_AYVCEgR3rsAUYeWAqE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#001e40] font-medium hover:underline text-sm"
+                  >
+                    Lire les avis sur Google →
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -131,6 +131,8 @@ export function Home() {
             src={heroImage}
             alt="Flotte de camions DAF"
             className="w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
           />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
